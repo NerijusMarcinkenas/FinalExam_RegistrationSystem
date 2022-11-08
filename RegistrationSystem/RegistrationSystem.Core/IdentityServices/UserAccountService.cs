@@ -54,6 +54,7 @@ namespace RegistrationSystem.Core.IdentityServices
                 result.Message = "Wrong username";
                 return result;
             }
+
             var user = await _userRepository.GetUserByUsername(username);
 
             if (user == null || !VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))

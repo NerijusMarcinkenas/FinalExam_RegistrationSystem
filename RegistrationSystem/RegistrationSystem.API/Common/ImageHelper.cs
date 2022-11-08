@@ -6,22 +6,22 @@ using System.Drawing.Imaging;
 
 namespace RegistrationSystem.API.Common
 {
+    // TO DO: make image helper as separete service in core layer
     public static class ImageHelper
     {
         public static PersonImage CreateImage(CreateImageRequest imageRequest)
-        {            
-
+        {   
             using var memmoryStream = new MemoryStream();
             imageRequest.PersonImage.CopyTo(memmoryStream);
             var imageBytes = memmoryStream.ToArray();
 
-            var resizedImageBytes = ResizeImage(imageBytes, 200,200).GetImageBytes(ImageFormat.Jpeg);
-            
+            var resizedImageBytes = ResizeImage(imageBytes, 200, 200).GetImageBytes(ImageFormat.Jpeg);
+
             return new PersonImage
             {
                 Name = imageRequest.PersonImage.FileName,
                 ContentType = imageRequest.PersonImage.ContentType,
-                ImageBytes = resizedImageBytes,
+                ImageBytes = imageBytes,
             };            
         }             
 

@@ -32,6 +32,7 @@ namespace RegistrationSystem.API.Controllers
                 return BadRequest(new BadRequestMessage(LogedInUserIdDontMatchUserId.Message));
 
             var person = PersonMapper.MapPersonRequest(createPersonRequest, userId);
+            
             var result =  await _personService.AddPersonAsync(person);
 
             if (!result.IsSuccess || result.ResultObject == null)
@@ -44,6 +45,7 @@ namespace RegistrationSystem.API.Controllers
                 ObjectResult = new PersonResponse(result.ResultObject),
                 Message = result.Message
             };
+
             return Ok(resultResponse);
         }
 
@@ -52,10 +54,11 @@ namespace RegistrationSystem.API.Controllers
             [Required]string userId,
             [Required]string firstName)
         {
-            if (!User.IsAdmin() || !User.MatchProvidedId(userId))
+            if (!User.IsAdmin() && !User.MatchProvidedId(userId))
                 return BadRequest(new BadRequestMessage(LogedInUserIdDontMatchUserId.Message));
 
             var personToUpdate = await _personService.GetPersonWithIncludesAsync(userId);
+
             if (personToUpdate == null)
             {
                 return BadRequest(new BadRequestMessage(PersonNotCreatedMessage.Message));
@@ -66,12 +69,12 @@ namespace RegistrationSystem.API.Controllers
             return Ok(resultResponse);
         }
 
-        [HttpPut("UpdateLasName")]
+        [HttpPut("UpdateLastName")]
         public async Task<ActionResult> UpdateLastName(
             [Required] string userId,
             [Required] string lastName)
         {
-            if (!User.IsAdmin() || !User.MatchProvidedId(userId))
+            if (!User.IsAdmin() && !User.MatchProvidedId(userId))
                 return BadRequest(new BadRequestMessage(LogedInUserIdDontMatchUserId.Message));
 
             var personToUpdate = await _personService.GetPersonWithIncludesAsync(userId);  
@@ -90,7 +93,7 @@ namespace RegistrationSystem.API.Controllers
             [Required] string userId, 
             [Required] string personalNumber)
         {
-            if (!User.IsAdmin() || !User.MatchProvidedId(userId))
+            if (!User.IsAdmin() && !User.MatchProvidedId(userId))
                 return BadRequest(new BadRequestMessage(LogedInUserIdDontMatchUserId.Message));
 
             var personToUpdate = await _personService.GetPersonWithIncludesAsync(userId);
@@ -109,7 +112,7 @@ namespace RegistrationSystem.API.Controllers
             [Required] string userId, 
             [Required] string phoneNumber)
         {
-            if (!User.IsAdmin() || !User.MatchProvidedId(userId))
+            if (!User.IsAdmin() && !User.MatchProvidedId(userId))
                 return BadRequest(new BadRequestMessage(LogedInUserIdDontMatchUserId.Message));
 
             var personToUpdate = await _personService.GetPersonWithIncludesAsync(userId);
@@ -120,6 +123,7 @@ namespace RegistrationSystem.API.Controllers
 
             var updatedPerson = await _personService.UpdatePhoneNumberAsync(personToUpdate, phoneNumber);
             var resultResponse = new PersonResponse(updatedPerson);
+
             return Ok(resultResponse);
         }
 
@@ -128,7 +132,7 @@ namespace RegistrationSystem.API.Controllers
             [Required] string userId, 
             [Required] string email)
         {
-            if (!User.IsAdmin() || !User.MatchProvidedId(userId))
+            if (!User.IsAdmin() && !User.MatchProvidedId(userId))
                 return BadRequest(new BadRequestMessage(LogedInUserIdDontMatchUserId.Message));
 
             var personToUpdate = await _personService.GetPersonWithIncludesAsync(userId);
@@ -139,6 +143,7 @@ namespace RegistrationSystem.API.Controllers
 
             var updatedPerson = await _personService.UpdateEmailAsync(personToUpdate, email);
             var resultResponse = new PersonResponse(updatedPerson);
+
             return Ok(resultResponse);
         }
 
@@ -147,7 +152,7 @@ namespace RegistrationSystem.API.Controllers
             [Required] string userId, 
             [Required] CreateImageRequest imageRequest)
         {
-            if (!User.IsAdmin() || !User.MatchProvidedId(userId))
+            if (!User.IsAdmin() && !User.MatchProvidedId(userId))
                 return BadRequest(new BadRequestMessage(LogedInUserIdDontMatchUserId.Message));
 
             var personToUpdate = await _personService.GetPersonWithIncludesAsync(userId);
@@ -156,9 +161,11 @@ namespace RegistrationSystem.API.Controllers
                 return BadRequest(new BadRequestMessage(PersonNotCreatedMessage.Message));
             }
 
+            var personImage = ImageHelper.CreateImage(imageRequest);
+
             var updatedPerson = await _personService
-                .UpadateImageAsync(personToUpdate,
-                ImageHelper.CreateImage(imageRequest));
+                .UpadateImageAsync(personToUpdate, personImage);
+
             var resultResponse = new PersonResponse(updatedPerson);
             return Ok(resultResponse);
         }
@@ -169,7 +176,7 @@ namespace RegistrationSystem.API.Controllers
             [Required] string userId, 
             [Required] string addressCity)
         {
-            if (!User.IsAdmin() || !User.MatchProvidedId(userId))
+            if (!User.IsAdmin() && !User.MatchProvidedId(userId))
                 return BadRequest(new BadRequestMessage(LogedInUserIdDontMatchUserId.Message));
 
             var personToUpdate = await _personService.GetPersonWithIncludesAsync(userId);
@@ -188,7 +195,7 @@ namespace RegistrationSystem.API.Controllers
             [Required] string userId,
             [Required] string addressStreet)
         {
-            if (!User.IsAdmin() || !User.MatchProvidedId(userId))
+            if (!User.IsAdmin() && !User.MatchProvidedId(userId))
                 return BadRequest(new BadRequestMessage(LogedInUserIdDontMatchUserId.Message));
 
             var personToUpdate = await _personService.GetPersonWithIncludesAsync(userId);
@@ -207,7 +214,7 @@ namespace RegistrationSystem.API.Controllers
             [Required] string userId, 
             [Required] string buildingNumber)
         {
-            if (!User.IsAdmin() || !User.MatchProvidedId(userId))
+            if (!User.IsAdmin() && !User.MatchProvidedId(userId))
                 return BadRequest(new BadRequestMessage(LogedInUserIdDontMatchUserId.Message));
 
             var personToUpdate = await _personService.GetPersonWithIncludesAsync(userId);
@@ -226,7 +233,7 @@ namespace RegistrationSystem.API.Controllers
             [Required] string userId, 
             [Required] string flatNumber)
         {
-            if (!User.IsAdmin() || !User.MatchProvidedId(userId))
+            if (!User.IsAdmin() && !User.MatchProvidedId(userId))
                 return BadRequest(new BadRequestMessage(LogedInUserIdDontMatchUserId.Message));
 
             var personToUpdate = await _personService.GetPersonWithIncludesAsync(userId);
@@ -244,7 +251,7 @@ namespace RegistrationSystem.API.Controllers
         [HttpGet("GetPersonByUserId")]
         public async Task<ActionResult> GetPersonByUserId(string userId)
         {
-            if (!User.IsAdmin() || !User.MatchProvidedId(userId))
+            if (!User.IsAdmin() && !User.MatchProvidedId(userId))
                 return BadRequest(new BadRequestMessage(LogedInUserIdDontMatchUserId.Message));
             
             var person = await _personService.GetPersonWithIncludesAsync(userId);

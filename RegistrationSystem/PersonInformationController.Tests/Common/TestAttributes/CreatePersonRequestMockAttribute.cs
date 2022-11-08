@@ -11,10 +11,7 @@ namespace RegistrationSystemUnitTests.Common.TestAttributes
             : base(() =>
             {
                 var fixture = new Fixture();
-                fixture.Customizations.Add(
-                new TypeRelay(
-                typeof(IFormFile),
-                typeof(FormFile)));
+                
 
                 fixture.Customizations.Add(new CreatePersonRequestSpecimenBuilder());
                 return fixture;

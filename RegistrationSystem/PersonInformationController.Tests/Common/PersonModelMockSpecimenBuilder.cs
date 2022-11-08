@@ -31,9 +31,9 @@ namespace RegistrationSystemUnitTests.Common
                         ImageBytes = new byte[10],
                         Name = "Test",
                         PersonId = "1",
-                        Person = null,
+                        Person = null!,
                     },
-                    User = null,
+                    User = null!,
                     Id = "1",
                     UserId = "1"
                 };

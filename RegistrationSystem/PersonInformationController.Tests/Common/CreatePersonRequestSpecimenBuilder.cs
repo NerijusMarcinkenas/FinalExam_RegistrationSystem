@@ -1,4 +1,5 @@
 ﻿using AutoFixture.Kernel;
+using Microsoft.AspNetCore.Http;
 using RegistrationSystem.API.Dtos.Requests;
 
 namespace RegistrationSystemUnitTests.Common
@@ -18,10 +19,10 @@ namespace RegistrationSystemUnitTests.Common
                         FlatNumber = "5",
                         Street = "Test street"
                     },                    
-                    CreateImageRequest = null,// new CreateImageRequest(),
-                    //{
-                    //    PersonImage = s
-                    //}
+                    CreateImageRequest = new CreateImageRequest
+                    {
+                        PersonImage = CreateFormFile(),
+                    },
                     Email = "Test email",
                     FirstName = "Test name",
                     LastName = "Test lastname",
@@ -31,6 +32,21 @@ namespace RegistrationSystemUnitTests.Common
                 };
             }
             return new NoSpecimen();
+        }
+
+        private static IFormFile CreateFormFile()
+        {
+            var content = "Hello World from a Fake File";
+            var fileName = "test.jpg";
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            stream.WriteByte(0);
+            writer.Write(content);
+            writer.Flush();
+            stream.Position = 0;
+
+            IFormFile file = new FormFile(stream, 0, stream.Length, "id_from_form", fileName);
+            return file;
         }
     }
 }

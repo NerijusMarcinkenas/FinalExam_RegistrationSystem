@@ -3,7 +3,7 @@ using RegistrationSystem.Core.Models;
 
 namespace RegistrationSystem.Core.Extensions
 {
-    public static class UpdatePersonExtensions
+    public static class IPersonServiceExtensions
     {
         public static async Task<Person> UpdateFirstNameAsync(this IPersonService service, Person person, string value)
         {
