@@ -10,10 +10,9 @@ namespace RegistrationSystemUnitTests.Common.TestAttributes
         public CreatePersonRequestMockAttribute()
             : base(() =>
             {
-                var fixture = new Fixture();
-                
-
+                var fixture = new Fixture(); 
                 fixture.Customizations.Add(new CreatePersonRequestSpecimenBuilder());
+
                 return fixture;
             })
         {

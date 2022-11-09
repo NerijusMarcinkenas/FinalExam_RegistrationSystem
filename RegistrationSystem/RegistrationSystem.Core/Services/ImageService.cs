@@ -1,29 +1,34 @@
-﻿using RegistrationSystem.API.Dtos.Requests;
+﻿using Microsoft.AspNetCore.Http;
+using RegistrationSystem.Core.Extensions;
 using RegistrationSystem.Core.Models;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 
-namespace RegistrationSystem.API.Common
+namespace RegistrationSystem.Core.Services
 {
-    // TO DO: make image helper as separete service in core layer
-    public static class ImageHelper
+    public interface IImageService
     {
-        public static PersonImage CreateImage(CreateImageRequest imageRequest)
-        {   
+        PersonImage CreateImage(IFormFile personImage);
+    }
+
+    internal class ImageService : IImageService
+    {
+        public PersonImage CreateImage(IFormFile personImage)
+        {
             using var memmoryStream = new MemoryStream();
-            imageRequest.PersonImage.CopyTo(memmoryStream);
+            personImage.CopyTo(memmoryStream);
             var imageBytes = memmoryStream.ToArray();
 
             var resizedImageBytes = ResizeImage(imageBytes, 200, 200).GetImageBytes(ImageFormat.Jpeg);
 
             return new PersonImage
             {
-                Name = imageRequest.PersonImage.FileName,
-                ContentType = imageRequest.PersonImage.ContentType,
-                ImageBytes = imageBytes,
-            };            
-        }             
+                Name = personImage.FileName,
+                ContentType = personImage.ContentType,
+                ImageBytes = resizedImageBytes,
+            };
+        }
 
         private static Bitmap ResizeImage(
             byte[] pictureBytes,
@@ -52,14 +57,6 @@ namespace RegistrationSystem.API.Common
             }
 
             return destImage;
-        }
-
-        private static byte[] GetImageBytes(this Image image, ImageFormat format)
-        {
-            using MemoryStream ms = new();
-            image.Save(ms, format);
-            return ms.ToArray();
-        }
-
+        }       
     }
 }

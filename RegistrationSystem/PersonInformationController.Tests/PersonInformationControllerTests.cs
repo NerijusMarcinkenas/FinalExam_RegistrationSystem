@@ -10,6 +10,7 @@ using RegistrationSystem.Core.Common;
 using RegistrationSystem.Core.Extensions;
 using RegistrationSystem.Core.Interfaces;
 using RegistrationSystem.Core.Models;
+using RegistrationSystem.Core.Services;
 using RegistrationSystemUnitTests.Common;
 using RegistrationSystemUnitTests.Common.TestAttributes;
 using System.Security.Claims;
@@ -19,27 +20,28 @@ namespace PersonInformationControllerTests
     public class PersonInformationControllerTests
     {
         private readonly Mock<IPersonService> _personServiceMock;
-        private readonly Mock<ImageHelper> _formFileMock;
+        private readonly Mock<IImageService> _imageServiceMock;
         private readonly PersonInformationController _sut;
         private readonly IFixture _autofixture;
 
         public PersonInformationControllerTests()
         {
             _personServiceMock = new Mock<IPersonService>();
-            _formFileMock = new Mock<ImageHelper>();
-            _sut = new PersonInformationController(_personServiceMock.Object);
+            _imageServiceMock = new Mock<IImageService>();
+            _sut = new PersonInformationController(_personServiceMock.Object, _imageServiceMock.Object);
             _autofixture = new Fixture();
             _autofixture.Customizations.Add(new PersonModelMockSpecimenBuilder());
-
+            
         }
 
         [Theory, CreatePersonRequestMock]
         public async void CreatePerson_WhenUserIsNotAdminAndIdIsNotValid_ReturnsBadRequest(
             CreatePersonRequest createPersonRequest)
         {
-            Person person = _autofixture.Create<Person>();                      
-            AddUserMockRole("User", "2");
-           
+            Person person = _autofixture.Create<Person>();
+
+            SeedUserMockRole();
+
             var result = await _sut.CreatePerson(createPersonRequest, "1");
             var badRequestResult = result as BadRequestObjectResult;
             
@@ -48,34 +50,42 @@ namespace PersonInformationControllerTests
 
         }
 
-        //[Theory, CreatePersonRequestMock]
-        //public async void CreatePerson_WhenUserIsAdmin_ReturnsOk(
-        //  CreatePersonRequest createPersonRequest)
-        //{            
-        //    var person = _autofixture.Create<Person>();
+        [Theory, CreatePersonRequestMock]
+        public async void CreatePerson_WhenUserIsAdmin_ReturnsOk(
+          CreatePersonRequest createPersonRequest)
+        {
+            var person = _autofixture.Create<Person>();
+            SeedAdminMockRole();
 
-        //    var resultMock = new Result<Person>
-        //    {
-        //        IsSuccess = true,
-        //        Message = "",
-        //        ResultObject = person
-        //    };
-        //    _personServiceMock.Setup(x => x.AddPersonAsync(person)).ReturnsAsync(resultMock);
+            var resultMock = new Result<Person>
+            {
+                IsSuccess = true,
+                Message = "",
+                ResultObject = person
+            };
 
-        //    AddUserMockRole("Admin", "2");
+            _imageServiceMock
+                .Setup(x => x.CreateImage(createPersonRequest.CreateImageRequest.PersonImage))
+                .Returns(new PersonImage());
 
-        //    var result = await _sut.CreatePerson(createPersonRequest, "2");
-        //    var okResult = result as OkObjectResult;
+            _personServiceMock
+                .Setup(x => x.AddPersonAsync(It.Is<Person>(x => x.PersonalNumber == person.PersonalNumber)))
+                .ReturnsAsync(resultMock);
 
-        //    Assert.Equal(200, okResult.StatusCode);
-        //    _personServiceMock.Verify(a => a.AddPersonAsync(person), Times.Once);
-        //}
+            var result = await _sut.CreatePerson(createPersonRequest, "2");
+            var okResult = result as OkObjectResult;
+
+            Assert.Equal(200, okResult.StatusCode);
+            _personServiceMock.Verify(a => 
+            a.AddPersonAsync(It.Is<Person>(x => x.PersonalNumber == person.PersonalNumber)),
+            Times.Once);
+        }
 
         [Fact]
         public async Task UpdateFirstName_WhenUserIdIsNotValidAndNotAdmin_ReturnsBadRequest()
         {
             var person = _autofixture.Create<Person>();
-            AddUserMockRole("User", "1");
+            SeedUserMockRole();
 
             var result = await _sut.UpdateFirstName("2", "Test");
             var resultAsBadRequest = result as BadRequestObjectResult;
@@ -88,7 +98,7 @@ namespace PersonInformationControllerTests
         public async Task UpdateFirstName_WhenUserIdIsValidAndPersonIsNotSet_ReturnsBadRequest()
         {
             var person = _autofixture.Create<Person>();
-            AddUserMockRole("User", "2");
+            SeedUserMockRole();
 
             _personServiceMock.Setup(x => x.GetPersonWithIncludesAsync("2")).ReturnsAsync(default(Person));
 
@@ -104,12 +114,11 @@ namespace PersonInformationControllerTests
         public async Task UpdateFirstName_WhenUserIdIsValidAndNotAdmin_ReturnsOk()
         {
             var person = _autofixture.Create<Person>();
-            AddUserMockRole("User", "2");
+            SeedUserMockRole();
 
             _personServiceMock.Setup(x => x.GetPersonWithIncludesAsync("2")).ReturnsAsync(person);
 
             var result = await _sut.UpdateFirstName("2", "Test");
-
             var resultAsOk = result as OkObjectResult;
 
             Assert.Equal(200, resultAsOk.StatusCode);
@@ -120,12 +129,11 @@ namespace PersonInformationControllerTests
         public async Task UpdateFirstName_WhenUserIdNotValidAndUserAdmin_ReturnsOk()
         {
             var person = _autofixture.Create<Person>();
-            AddUserMockRole("Admin", "2");
+            SeedAdminMockRole();
 
             _personServiceMock.Setup(x => x.GetPersonWithIncludesAsync("2")).ReturnsAsync(person);
 
             var result = await _sut.UpdateFirstName("2", "Test");
-
             var resultAsOk = result as OkObjectResult;
 
             Assert.Equal(200, resultAsOk.StatusCode);
@@ -136,11 +144,10 @@ namespace PersonInformationControllerTests
         public async Task UpdateLastName_WhenUserIdIsValid_ReturnsOk()
         {
             var person = _autofixture.Create<Person>();
-            AddUserMockRole("User", "2");
+            SeedUserMockRole();
             _personServiceMock.Setup(x => x.GetPersonWithIncludesAsync("2")).ReturnsAsync(person);
             
             var result = await _sut.UpdateLastName("2", "Test");
-
             var resultAsOk = result as OkObjectResult;
 
             Assert.Equal(200, resultAsOk.StatusCode);
@@ -151,11 +158,10 @@ namespace PersonInformationControllerTests
         public async Task UpdatePersonalNumber_WhenUserIdIsValid_ReturnsOk()
         {
             var person = _autofixture.Create<Person>();
-            AddUserMockRole("User", "2");
+            SeedUserMockRole();
             _personServiceMock.Setup(x => x.GetPersonWithIncludesAsync("2")).ReturnsAsync(person);
 
             var result = await _sut.UpdatePersonalNumber("2", "Test");
-
             var resultAsOk = result as OkObjectResult;
 
             Assert.Equal(200, resultAsOk.StatusCode);
@@ -166,11 +172,10 @@ namespace PersonInformationControllerTests
         public async Task UpdatePhoneNumber_WhenUserIdIsValid_ReturnsOk()
         {
             var person = _autofixture.Create<Person>();
-            AddUserMockRole("User", "2");
+            SeedUserMockRole();
             _personServiceMock.Setup(x => x.GetPersonWithIncludesAsync("2")).ReturnsAsync(person);
 
             var result = await _sut.UpdatePhoneNumber("2", "Test");
-
             var resultAsOk = result as OkObjectResult;
 
             Assert.Equal(200, resultAsOk.StatusCode);
@@ -181,28 +186,28 @@ namespace PersonInformationControllerTests
         public async Task UpdateEmail_WhenUserIdIsValid_ReturnsOk()
         {
             var person = _autofixture.Create<Person>();
-            AddUserMockRole("User", "2");
+            SeedUserMockRole();
+
             _personServiceMock.Setup(x => x.GetPersonWithIncludesAsync("2")).ReturnsAsync(person);
 
             var result = await _sut.UpdateEmail("2", "Test");
-
             var resultAsOk = result as OkObjectResult;
 
             Assert.Equal(200, resultAsOk.StatusCode);
+
             _personServiceMock.Verify(x => x.UpdatePerson(person), Times.Once);
         }
 
-        [Fact]
-        public async Task UpadateImage_WhenUserIdIsValid_ReturnsOk()
+        [Theory,CreatePersonRequestMock]
+        public async Task UpadateImage_WhenUserIdIsValid_ReturnsOk(CreatePersonRequest createPersonRequest)
         {
-            var imageRequest = new CreateImageRequest()
-            {
-            };
             var person = _autofixture.Create<Person>();
-            AddUserMockRole("User", "2");
-            _personServiceMock.Setup(x => x.GetPersonWithIncludesAsync("2")).ReturnsAsync(person);
+            SeedUserMockRole();
 
-            var result = await _sut.UpadateImage("2", imageRequest);
+            _personServiceMock.Setup(x => x.GetPersonWithIncludesAsync("2")).ReturnsAsync(person);
+            _imageServiceMock.Setup(x => x.CreateImage(createPersonRequest.CreateImageRequest.PersonImage)).Returns(new PersonImage());
+
+            var result = await _sut.UpadateImage("2", createPersonRequest.CreateImageRequest);
 
             var resultAsOk = result as OkObjectResult;
 
@@ -212,13 +217,28 @@ namespace PersonInformationControllerTests
 
 
 
-        private void AddUserMockRole(string role, string userId)
+        private void SeedUserMockRole()
         {
             var userMock = new ClaimsPrincipal(new ClaimsIdentity(
                 new Claim[]
                 {
-                    new Claim("UserId", userId),
-                    new Claim(ClaimTypes.Role, role)
+                    new Claim("UserId", "2"),
+                    new Claim(ClaimTypes.Role, "User")
+                }));
+
+            _sut.ControllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext { User = userMock }
+            };
+        }
+
+        private void SeedAdminMockRole()
+        {
+            var userMock = new ClaimsPrincipal(new ClaimsIdentity(
+                new Claim[]
+                {
+                    new Claim("UserId", "2"),
+                    new Claim(ClaimTypes.Role, "Admin")
                 }));
 
             _sut.ControllerContext = new ControllerContext()

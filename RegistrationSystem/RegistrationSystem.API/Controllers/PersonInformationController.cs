@@ -7,6 +7,7 @@ using RegistrationSystem.API.Errors;
 using RegistrationSystem.API.Extensions;
 using RegistrationSystem.Core.Extensions;
 using RegistrationSystem.Core.Interfaces;
+using RegistrationSystem.Core.Services;
 using System.ComponentModel.DataAnnotations;
 
 namespace RegistrationSystem.API.Controllers
@@ -17,10 +18,15 @@ namespace RegistrationSystem.API.Controllers
     public class PersonInformationController : ControllerBase
     {
         private readonly IPersonService _personService;
+        private readonly IImageService _imageService;
+        private readonly PersonMapper _personMapper;
 
-        public PersonInformationController(IPersonService personService)
+        public PersonInformationController(IPersonService personService,
+            IImageService imageService)
         {
             _personService = personService;
+            _imageService = imageService;
+            _personMapper = new PersonMapper(imageService);
         }
 
         [HttpPost("CreatePerson")]
@@ -31,7 +37,7 @@ namespace RegistrationSystem.API.Controllers
             if (!User.IsAdmin() && !User.MatchProvidedId(userId))
                 return BadRequest(new BadRequestMessage(LogedInUserIdDontMatchUserId.Message));
 
-            var person = PersonMapper.MapPersonRequest(createPersonRequest, userId);
+            var person = _personMapper.MapPersonRequest(createPersonRequest, userId);
             
             var result =  await _personService.AddPersonAsync(person);
 
@@ -156,12 +162,13 @@ namespace RegistrationSystem.API.Controllers
                 return BadRequest(new BadRequestMessage(LogedInUserIdDontMatchUserId.Message));
 
             var personToUpdate = await _personService.GetPersonWithIncludesAsync(userId);
+
             if (personToUpdate == null)
             {
                 return BadRequest(new BadRequestMessage(PersonNotCreatedMessage.Message));
             }
 
-            var personImage = ImageHelper.CreateImage(imageRequest);
+            var personImage = _imageService.CreateImage(imageRequest.PersonImage);
 
             var updatedPerson = await _personService
                 .UpadateImageAsync(personToUpdate, personImage);

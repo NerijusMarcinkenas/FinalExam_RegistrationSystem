@@ -20,7 +20,7 @@ namespace RegistrationSystem.Core.IdentityServices
             _jwtTokenService = jwtTokenService;
         }
 
-        public async Task<IAuthorizationResult<User>> CreateUserAccountAsync(string username, string password)
+        public async Task<AuthorizationResult<User>> CreateUserAccountAsync(string username, string password)
         {
             var isUserExist = await _userRepository.IsUserExists(username);
             var result = new AuthorizationResult<User>();
@@ -46,7 +46,7 @@ namespace RegistrationSystem.Core.IdentityServices
             return result;
         }
 
-        public async Task<IAuthorizationResult<User>> LoginUserAsync(string username, string password)
+        public async Task<AuthorizationResult<User>> LoginUserAsync(string username, string password)
         {
             var result = new AuthorizationResult<User>();
             if (!await _userRepository.IsUserExists(username))
@@ -69,7 +69,7 @@ namespace RegistrationSystem.Core.IdentityServices
             return result;
         }
 
-        public async Task<IResult<User>> RemoveUserAccountAsync(string userId)
+        public async Task<Result<User>> RemoveUserAccountAsync(string userId)
         {
             var userToRemove = await _userRepository.GetUserWithPerson(userId);
             if (userToRemove == null)

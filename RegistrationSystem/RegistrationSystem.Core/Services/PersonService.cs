@@ -21,7 +21,7 @@ namespace RegistrationSystem.Core.Services
             return await _personRepository.GetPersonWithIncludesAsync(userId);
         }
 
-        public async Task<IResult<Person>> AddPersonAsync(Person person)
+        public async Task<Result<Person>> AddPersonAsync(Person person)
         {
             var result = new Result<Person>();
             if (await _personRepository.GetPersonByUserId(person.UserId) != null)

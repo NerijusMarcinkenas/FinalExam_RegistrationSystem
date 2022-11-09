@@ -1,12 +1,24 @@
 ﻿using RegistrationSystem.API.Dtos.Requests;
-using RegistrationSystem.API.Dtos.Responses;
 using RegistrationSystem.Core.Models;
+using RegistrationSystem.Core.Services;
 
 namespace RegistrationSystem.API.Common
 {
-    public static class PersonMapper
+    public interface IPersonMaper
     {
-        public static Person MapPersonRequest(CreatePersonRequest createPersonRequest, string userId)
+        Person MapPersonRequest(CreatePersonRequest createPersonRequest, string userId);
+    }
+
+    public class PersonMapper : IPersonMaper
+    {
+        private readonly IImageService _imageService;
+
+        public PersonMapper(IImageService imageService)
+        {
+            _imageService = imageService;
+        }
+
+        public Person MapPersonRequest(CreatePersonRequest createPersonRequest, string userId)
         {
             return new Person
             {
@@ -17,7 +29,7 @@ namespace RegistrationSystem.API.Common
                 PhoneNumber = createPersonRequest.PhoneNumber,
                 UserId = userId,
                 Address = MapAddress(createPersonRequest.CreateAddressRequest),
-                Image = ImageHelper.CreateImage(createPersonRequest.CreateImageRequest),                
+                Image = _imageService.CreateImage(createPersonRequest.CreateImageRequest.PersonImage),                
             };
         }
 

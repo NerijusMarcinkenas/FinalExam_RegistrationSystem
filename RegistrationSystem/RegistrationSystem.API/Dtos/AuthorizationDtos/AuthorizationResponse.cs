@@ -1,4 +1,4 @@
-﻿using RegistrationSystem.Core.Interfaces;
+﻿using RegistrationSystem.Core.Common;
 
 namespace RegistrationSystem.API.Dtos.AuthorizationDtos
 {
@@ -11,7 +11,7 @@ namespace RegistrationSystem.API.Dtos.AuthorizationDtos
         {
         }
 
-        public AuthorizationResponse(IAuthorizationResult<T> result)
+        public AuthorizationResponse(AuthorizationResult<T> result)
         {
             Token = result.Token;
             Message = result.Message;

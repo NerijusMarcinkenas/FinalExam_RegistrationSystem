@@ -21,6 +21,7 @@ namespace RegistrationSystem.Core.Extensions
             services.AddScoped<IIdentityJwtTokenService,IdentityJwtTokenService>();
             services.AddScoped<IUserAccountService, UserAccountService>();
             services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IImageService, ImageService>();
 
             services.AddAuthorizationCore(options =>
             {
