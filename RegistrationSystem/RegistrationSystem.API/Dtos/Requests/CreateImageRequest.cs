@@ -1,5 +1,5 @@
-﻿using FilesUploadApiDemo.Validation;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using RegistrationSystem.API.Common.ImageValidations;
 
 namespace RegistrationSystem.API.Dtos.Requests
 {

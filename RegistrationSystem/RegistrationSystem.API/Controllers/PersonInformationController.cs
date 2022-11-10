@@ -72,6 +72,7 @@ namespace RegistrationSystem.API.Controllers
 
             var updatedPerson = await _personService.UpdateFirstNameAsync(personToUpdate, firstName);  
             var resultResponse = new PersonResponse(updatedPerson);
+            
             return Ok(resultResponse);
         }
 
@@ -91,6 +92,7 @@ namespace RegistrationSystem.API.Controllers
 
             var updatedPerson = await _personService.UpdateLastNameAsync(personToUpdate, lastName);
             var resultResponse = new PersonResponse(updatedPerson);
+            
             return Ok(resultResponse);
         }
 
@@ -108,8 +110,9 @@ namespace RegistrationSystem.API.Controllers
                 return BadRequest(new BadRequestMessage(PersonNotCreatedMessage.Message));
             }
 
-            var updatedPerson = await _personService.UpadatePersonalNumberAsync(personToUpdate, personalNumber);
+            var updatedPerson = await _personService.UpdatePersonalNumberAsync(personToUpdate, personalNumber);
             var resultResponse = new PersonResponse(updatedPerson);
+            
             return Ok(resultResponse);
         }
 
@@ -153,8 +156,8 @@ namespace RegistrationSystem.API.Controllers
             return Ok(resultResponse);
         }
 
-        [HttpPut("UpadateImage")]
-        public async Task<ActionResult> UpadateImage(
+        [HttpPut("UpdateImage")]
+        public async Task<ActionResult> UpdateImage(
             [Required] string userId, 
             [Required] CreateImageRequest imageRequest)
         {
@@ -174,6 +177,7 @@ namespace RegistrationSystem.API.Controllers
                 .UpadateImageAsync(personToUpdate, personImage);
 
             var resultResponse = new PersonResponse(updatedPerson);
+            
             return Ok(resultResponse);
         }
 
@@ -194,6 +198,7 @@ namespace RegistrationSystem.API.Controllers
 
             var updatedPerson = await _personService.UpdateAddressCityAsync(personToUpdate, addressCity);
             var resultResponse = new PersonResponse(updatedPerson);
+            
             return Ok(resultResponse);
         }
 
@@ -213,6 +218,7 @@ namespace RegistrationSystem.API.Controllers
 
             var updatedPerson = await _personService.UpdateAddressStreetAsync(personToUpdate, addressStreet);
             var resultResponse = new PersonResponse(updatedPerson);
+            
             return Ok(resultResponse);
         }
 
@@ -232,6 +238,7 @@ namespace RegistrationSystem.API.Controllers
 
             var updatedPerson = await _personService.UpdateAddressBuildingNumberAsync(personToUpdate, buildingNumber);
             var resultResponse = new PersonResponse(updatedPerson);
+            
             return Ok(resultResponse);
         }
 
@@ -252,6 +259,7 @@ namespace RegistrationSystem.API.Controllers
             var updatedPerson = await _personService.UpdateAddressFlatNumberAsync(personToUpdate, flatNumber);
 
             var resultResponse = new PersonResponse(updatedPerson);
+            
             return Ok(resultResponse);
         }
 
@@ -268,6 +276,7 @@ namespace RegistrationSystem.API.Controllers
             }
 
             var personResponse = new PersonResponse(person);
+            
             return Ok(personResponse);
         }
     }

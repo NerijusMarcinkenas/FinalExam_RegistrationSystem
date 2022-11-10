@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9ACC85D5-B4E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{ACDFED12-9995-4078-9603-9DA2DD2734AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistrationSystemUnitTests", "PersonInformationController.Tests\RegistrationSystemUnitTests.csproj", "{4827A1AC-3A1A-4860-910B-E07487A200B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistrationSystem.API.Tests", "PersonInformationController.Tests\RegistrationSystem.API.Tests.csproj", "{4827A1AC-3A1A-4860-910B-E07487A200B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

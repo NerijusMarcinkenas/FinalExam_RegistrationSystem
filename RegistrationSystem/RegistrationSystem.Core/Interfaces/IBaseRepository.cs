@@ -1,6 +1,6 @@
 ﻿
 
-namespace Core.Interfaces
+namespace RegistrationSystem.Core.Interfaces
 {
     public interface IBaseRepository<T> where T : class
     {

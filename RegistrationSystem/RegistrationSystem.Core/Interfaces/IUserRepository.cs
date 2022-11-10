@@ -1,5 +1,4 @@
-﻿using Core.Interfaces;
-using RegistrationSystem.Core.Models;
+﻿using RegistrationSystem.Core.Models;
 
 namespace RegistrationSystem.Core.Interfaces
 {

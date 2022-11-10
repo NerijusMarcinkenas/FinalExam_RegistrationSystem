@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FilesUploadApiDemo.Validation
+namespace RegistrationSystem.API.Common.ImageValidations
 {
     public class AllowedExtensionsAttribute : ValidationAttribute
     {

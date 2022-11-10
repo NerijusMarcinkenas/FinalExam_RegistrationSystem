@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RegistrationSystem.Core.Interfaces;
 using RegistrationSystem.Core.Models;
 using RegistrationSystem.DAL.Data;
 

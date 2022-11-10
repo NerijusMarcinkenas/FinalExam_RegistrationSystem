@@ -2,7 +2,6 @@
 using RegistrationSystem.Core.Common;
 using RegistrationSystem.Core.Interfaces;
 using RegistrationSystem.Core.Models;
-using RegistrationSystem.DAL.Repositories;
 
 namespace RegistrationSystem.Core.Services
 {

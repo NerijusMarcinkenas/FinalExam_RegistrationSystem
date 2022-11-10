@@ -1,7 +1,6 @@
-﻿using Core.Interfaces;
-using RegistrationSystem.Core.Models;
+﻿using RegistrationSystem.Core.Models;
 
-namespace RegistrationSystem.DAL.Repositories
+namespace RegistrationSystem.Core.Interfaces
 {
     public interface IPersonRepository : IBaseRepository<Person>
     {

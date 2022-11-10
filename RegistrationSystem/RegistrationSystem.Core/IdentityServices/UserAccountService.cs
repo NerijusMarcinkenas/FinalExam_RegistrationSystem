@@ -42,7 +42,7 @@ namespace RegistrationSystem.Core.IdentityServices
             await _userRepository.AddAsync(user);
                    
             result.IsSuccess = true;
-            result.Message = "User created sucessfully";
+            result.Message = "User created successfully";
             return result;
         }
 
@@ -64,7 +64,7 @@ namespace RegistrationSystem.Core.IdentityServices
             }
 
             result.IsSuccess = true;
-            result.Message = "Login successfull";
+            result.Message = "Login successfully";
             result.Token = _jwtTokenService.GetJwtToken(user);
             return result;
         }

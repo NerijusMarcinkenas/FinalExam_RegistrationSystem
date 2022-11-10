@@ -55,10 +55,13 @@ namespace RegistrationSystem.API.Controllers
         [HttpDelete("RemoveUserAccount")]
         public async Task<ActionResult> RemoveUserAccount(string userId)
         {
-            if (!User.IsAdmin() || !User.MatchProvidedId(userId))
-                return BadRequest(new BadRequestMessage(LogedInUserIdDontMatchUserId.Message));
+            if (User.MatchProvidedId(userId))
+            {
+                return BadRequest(new BadRequestMessage(AdminCannotRemoveSelf.Message));
+            }
 
             var result = await _accountService.RemoveUserAccountAsync(userId);
+            
             if (!result.IsSuccess)
             {
                 return NotFound(new NotFoundErrorMessage(result.Message));

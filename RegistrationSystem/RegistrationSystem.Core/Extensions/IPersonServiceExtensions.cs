@@ -18,7 +18,7 @@ namespace RegistrationSystem.Core.Extensions
             await service.UpdatePerson(person);
             return person;
         }
-        public static async Task<Person> UpadatePersonalNumberAsync(this IPersonService service, Person person, string value)
+        public static async Task<Person> UpdatePersonalNumberAsync(this IPersonService service, Person person, string value)
         {
             person.PersonalNumber = value;
             await service.UpdatePerson(person);

@@ -1,5 +1,5 @@
-﻿using Core.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using RegistrationSystem.Core.Interfaces;
 
 
 namespace RegistrationSystem.DAL.Repositories
