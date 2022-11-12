@@ -32,11 +32,7 @@ namespace RegistrationSystem.DAL.Data
 
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Username)
-                .IsUnique(false);
-
-            modelBuilder.Entity<Person>()
-                .HasIndex(p => p.PersonalNumber)
-                .IsUnique(true);
+                .IsUnique();
         }
     }
 }

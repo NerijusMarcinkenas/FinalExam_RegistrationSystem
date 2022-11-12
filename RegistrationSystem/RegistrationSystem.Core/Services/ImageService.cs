@@ -12,7 +12,7 @@ namespace RegistrationSystem.Core.Services
         PersonImage CreateImage(IFormFile personImage);
     }
 
-    internal class ImageService : IImageService
+    public class ImageService : IImageService
     {
         public PersonImage CreateImage(IFormFile personImage)
         {

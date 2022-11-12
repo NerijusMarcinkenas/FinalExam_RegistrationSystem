@@ -6,16 +6,13 @@
     <Nullable>disable</Nullable>
 
     <IsPackable>false</IsPackable>
-
-    <RootNamespace>RegistrationSystemUnitTests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.17.0" />
-    <PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
-    <PackageReference Include="FluentAssertions" Version="6.8.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="Moq" Version="4.18.2" />
+    <PackageReference Include="Stripe.net" Version="40.16.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -28,8 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj" />
-    <ProjectReference Include="..\RegistrationSystem.API\RegistrationSystem.API.csproj" />
+    <ProjectReference Include="..\PersonInformationController.Tests\RegistrationSystem.API.Tests.csproj" />
     <ProjectReference Include="..\RegistrationSystem.Core\RegistrationSystem.Core.csproj" />
   </ItemGroup>
 

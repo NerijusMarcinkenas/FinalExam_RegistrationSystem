@@ -4,8 +4,8 @@ namespace RegistrationSystem.Core.Interfaces
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        Task<User?> GetUserByUsername(string username);
-        Task<User?> GetUserWithPerson(string userId);
-        Task<bool> IsUserExists(string username);
+        Task<User?> GetUserByUsernameAsync(string username);
+        Task<User?> GetUserWithPersonAsync(string userId);    
+        Task<bool> IsUserExistsAsync(string username);
     }
 }

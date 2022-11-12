@@ -6,7 +6,7 @@ using RegistrationSystem.Core.Models;
 namespace RegistrationSystem.Core.Services
 {
 
-    internal class PersonService : IPersonService
+    public class PersonService : IPersonService
     {
         private readonly IPersonRepository _personRepository;
 
@@ -23,15 +23,19 @@ namespace RegistrationSystem.Core.Services
         public async Task<Result<Person>> AddPersonAsync(Person person)
         {
             var result = new Result<Person>();
-            if (await _personRepository.GetPersonByUserId(person.UserId) != null)
+            
+            if (await _personRepository.GetByIdAsync(person.UserId) != null)
             {
                 result.Message = "Person information could be added only one time";
                 return result;
             }
+
             var addedPerson = await _personRepository.AddAsync(person);
+
             result.ResultObject = addedPerson;
             result.IsSuccess = true;
             result.Message = "Person added successfully";
+
             return result;
         }
 

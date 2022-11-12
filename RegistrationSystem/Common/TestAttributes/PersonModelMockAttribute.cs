@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using AutoFixture.Xunit2;
 
-namespace RegistrationSystemUnitTests.Common.TestAttributes
+namespace Tests.Common.TestAttributes
 {
     public class PersonModelMockAttribute : AutoDataAttribute
     {

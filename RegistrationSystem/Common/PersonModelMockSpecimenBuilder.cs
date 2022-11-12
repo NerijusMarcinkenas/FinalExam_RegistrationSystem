@@ -1,7 +1,7 @@
 ﻿using AutoFixture.Kernel;
 using RegistrationSystem.Core.Models;
 
-namespace RegistrationSystemUnitTests.Common
+namespace Tests.Common
 {
     public class PersonModelMockSpecimenBuilder : ISpecimenBuilder
     {
@@ -17,7 +17,7 @@ namespace RegistrationSystemUnitTests.Common
                         BuildingNumber = "22",
                         City = "Test city",
                         FlatNumber = "11",
-                        Id = "1",                        
+                        Id = "1",
                     },
                     Email = "Test email",
                     FirstName = "Test name",
@@ -33,7 +33,10 @@ namespace RegistrationSystemUnitTests.Common
                         PersonId = "1",
                         Person = null!,
                     },
-                    User = null!,
+                    User = new User
+                    {
+                        Id = "1",
+                    },
                     Id = "1",
                     UserId = "1"
                 };

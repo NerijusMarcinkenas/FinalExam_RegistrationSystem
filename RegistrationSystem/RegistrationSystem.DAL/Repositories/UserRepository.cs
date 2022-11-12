@@ -14,13 +14,13 @@ namespace RegistrationSystem.DAL.Repositories
         {
             _db = db;
         }
-        public async Task<bool> IsUserExists(string username) =>
+        public async Task<bool> IsUserExistsAsync(string username) =>
             await _db.Users.AnyAsync(u => u.Username == username);
 
-        public async Task<User?> GetUserByUsername(string username) =>
+        public async Task<User?> GetUserByUsernameAsync(string username) =>
             await _db.Users.SingleOrDefaultAsync(u => u.Username == username);
 
-        public async Task<User?> GetUserWithPerson(string userId)
+        public async Task<User?> GetUserWithPersonAsync(string userId)
         {
             return await _db.Users
                 .Include(p => p.Person)

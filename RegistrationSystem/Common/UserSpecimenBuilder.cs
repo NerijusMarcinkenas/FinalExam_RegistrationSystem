@@ -2,7 +2,7 @@
 using RegistrationSystem.Core.Enums;
 using RegistrationSystem.Core.Models;
 
-namespace RegistrationSystemUnitTests.Common
+namespace Tests.Common
 {
     public class UserSpecimenBuilder : ISpecimenBuilder
     {
@@ -14,7 +14,9 @@ namespace RegistrationSystemUnitTests.Common
                 {
                     Id = "1",
                     Username = "Test username",
-                    Role = Roles.User
+                    Role = Roles.User,
+                    PasswordHash = new byte[32],
+                    PasswordSalt = new byte[32]
                 };
             }
             return new NoSpecimen();

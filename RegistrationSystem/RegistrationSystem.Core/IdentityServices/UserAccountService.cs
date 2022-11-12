@@ -7,8 +7,7 @@ using System.Text;
 
 namespace RegistrationSystem.Core.IdentityServices
 {
-
-    internal class UserAccountService : IUserAccountService
+    public class UserAccountService : IUserAccountService
     {
         private readonly IUserRepository _userRepository;
         private readonly IIdentityJwtTokenService _jwtTokenService;
@@ -22,7 +21,8 @@ namespace RegistrationSystem.Core.IdentityServices
 
         public async Task<AuthorizationResult<User>> CreateUserAccountAsync(string username, string password)
         {
-            var isUserExist = await _userRepository.IsUserExists(username);
+            var isUserExist = await _userRepository.IsUserExistsAsync(username);
+
             var result = new AuthorizationResult<User>();
             if (isUserExist)
             {
@@ -40,7 +40,7 @@ namespace RegistrationSystem.Core.IdentityServices
             };
 
             await _userRepository.AddAsync(user);
-                   
+
             result.IsSuccess = true;
             result.Message = "User created successfully";
             return result;
@@ -49,17 +49,12 @@ namespace RegistrationSystem.Core.IdentityServices
         public async Task<AuthorizationResult<User>> LoginUserAsync(string username, string password)
         {
             var result = new AuthorizationResult<User>();
-            if (!await _userRepository.IsUserExists(username))
-            {
-                result.Message = "Wrong username";
-                return result;
-            }
 
-            var user = await _userRepository.GetUserByUsername(username);
+            var user = await _userRepository.GetUserByUsernameAsync(username);
 
             if (user == null || !VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
-                result.Message = "Wrong password";
+                result.Message = "Wrong credentials";
                 return result;
             }
 
@@ -71,21 +66,22 @@ namespace RegistrationSystem.Core.IdentityServices
 
         public async Task<Result<User>> RemoveUserAccountAsync(string userId)
         {
-            var userToRemove = await _userRepository.GetUserWithPerson(userId);
+            var userToRemove = await _userRepository.GetUserWithPersonAsync(userId);
+
+            var result = new Result<User>();
+
             if (userToRemove == null)
             {
-                return new Result<User>
-                {
-                    Message = $"User with id: {userId} not found"
-                };
+                result.Message = $"User with id: {userId} not found";
+                return result;
             }
 
             await _userRepository.RemoveAsync(userToRemove);
-            return new Result<User>
-            {
-                Message = "User remove successfully",
-                IsSuccess = true
-            };
+
+            result.Message = "User removed successfully";
+            result.IsSuccess = true;
+
+            return result;
         }
 
         private static (byte[] hash, byte[] salt) CreatePasswordHash(string password)

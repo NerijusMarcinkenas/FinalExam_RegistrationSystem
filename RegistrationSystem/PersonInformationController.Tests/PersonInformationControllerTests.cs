@@ -1,18 +1,15 @@
-using System.Security.Claims;
 using AutoFixture;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using RegistrationSystem.API.Controllers;
 using RegistrationSystem.API.Dtos.Requests;
 using RegistrationSystem.Core.Common;
-using RegistrationSystem.Core.Extensions;
 using RegistrationSystem.Core.Interfaces;
 using RegistrationSystem.Core.Models;
 using RegistrationSystem.Core.Services;
-using RegistrationSystemUnitTests.Common;
-using RegistrationSystemUnitTests.Common.TestAttributes;
+using Tests.Common;
+using Tests.Common.TestAttributes;
 
 namespace RegistrationSystemUnitTests
 {

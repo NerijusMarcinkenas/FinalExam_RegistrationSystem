@@ -7,7 +7,7 @@ using RegistrationSystem.API.Dtos.AuthorizationDtos;
 using RegistrationSystem.Core.Common;
 using RegistrationSystem.Core.Interfaces;
 using RegistrationSystem.Core.Models;
-using RegistrationSystemUnitTests.Common;
+using Tests.Common;
 
 namespace RegistrationSystemUnitTests;
 

@@ -20,11 +20,6 @@ namespace RegistrationSystem.DAL.Repositories
         }
         public async Task<Person?> GetPersonWithIncludesAsync(string userId)
         {
-            if (_dbContext.People.SingleOrDefault(u => u.UserId == userId) is null)
-            {
-                return null;
-            }
-
             return await _dbContext.People
                 .Include(a => a.Address)
                 .Include(i => i.Image)

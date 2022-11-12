@@ -2,7 +2,7 @@
 
 namespace RegistrationSystem.Core.Interfaces
 {
-    internal interface IIdentityJwtTokenService
+    public interface IIdentityJwtTokenService
     {
         string GetJwtToken(User user);
     }

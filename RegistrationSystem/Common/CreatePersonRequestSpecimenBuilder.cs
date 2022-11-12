@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using RegistrationSystem.API.Dtos.Requests;
 
-namespace RegistrationSystemUnitTests.Common
+namespace Tests.Common
 {
     public class CreatePersonRequestSpecimenBuilder : ISpecimenBuilder
     {
@@ -18,7 +18,7 @@ namespace RegistrationSystemUnitTests.Common
                         City = "Test",
                         FlatNumber = "5",
                         Street = "Test street"
-                    },                    
+                    },
                     CreateImageRequest = new CreateImageRequest
                     {
                         PersonImage = CreateFormFile(),
@@ -28,7 +28,7 @@ namespace RegistrationSystemUnitTests.Common
                     LastName = "Test lastname",
                     PersonalNumber = "32315464",
                     PhoneNumber = "545-550-55",
-                    
+
                 };
             }
             return new NoSpecimen();
