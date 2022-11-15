@@ -17,6 +17,7 @@ namespace RegistrationSystem.Core.IdentityServices
         {
             _configuration = configuration;
         }
+
         public string GetJwtToken(User user)
         {
             var userRole = Enum.GetName(typeof(Roles), user.Role);
@@ -28,7 +29,7 @@ namespace RegistrationSystem.Core.IdentityServices
             {
                 new Claim(ClaimTypes.Name,user.Username),
                 new Claim("UserId", user.Id.ToString()),
-                new Claim(ClaimTypes.Role, userRole)
+                new Claim("Role", userRole)
             };
 
             var secret = _configuration.GetSection("Jwt:Key").Value;

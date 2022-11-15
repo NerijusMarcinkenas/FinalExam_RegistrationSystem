@@ -14,7 +14,6 @@ namespace RegistrationSystem.Core.Models
 
         [ForeignKey("Person")]
         public string PersonId { get; set; } = null!;
-
         public Person Person { get; set; } = null!;
     }
 }

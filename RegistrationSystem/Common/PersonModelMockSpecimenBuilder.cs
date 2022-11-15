@@ -30,8 +30,6 @@ namespace Tests.Common
                         ContentType = ".jpg",
                         ImageBytes = new byte[10],
                         Name = "Test",
-                        PersonId = "1",
-                        Person = null!,
                     },
                     User = new User
                     {

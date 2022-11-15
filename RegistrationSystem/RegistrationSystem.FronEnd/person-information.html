@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+</head>
+
+<body>
+    <div class="topnav" id="top-nav">
+        <div class="left">
+            <div id="person-logo" class="logo"><img class="todo-logo"
+                    src="https://media.istockphoto.com/id/1209654046/vector/user-avatar-profile-icon-black-vector-illustration.jpg?s=612x612&w=0&k=20&c=EOYXACjtZmZQ5IsZ0UUp1iNmZ9q2xl1BD1VvN6tZ2UI="
+                    alt="Person">
+            </div>
+        </div>
+        <div class="center nav">
+            <div id="info-btn">Info</div>
+            <div id="delete-btn" style="display:none;">Delete User</div>
+        </div>
+        <div class="right nav">
+            <div id="logout-btn">Logout</div>
+            <i id="username"></i>
+        </div>
+    </div>
+
+
+    <div class="info-tab center" style="display:none ;">
+
+        <button id="add-btn" class="btn">Add Person Info</button>
+
+        <div class="info-box" style="display: none;">
+
+            <div id="image" class="input-box"><img src="" alt="person image"></div>
+            <br>
+            <div class="input-box">
+                <label>First Name</label>
+                <input type="text" name="" id="firstName" readonly>
+
+            </div>
+            <div class="input-box">
+                <label>Last Name</label>
+                <input type="text" name="" id="lastName" readonly>
+
+            </div>
+            <div class="input-box">
+                <label>Personal Number</label>
+                <input type="text" name="" id="personalNumber" readonly>
+
+            </div>
+            <div class="input-box">
+                <label>Phone Number</label>
+                <input type="text" name="" id="phoneNumber" readonly>
+            </div>
+            <div class="input-box">
+                <label>Email</label>
+                <input type="text" name="" id="email" readonly>
+            </div>
+            <div class="input-box">
+                <label>City</label>
+                <input type="text" name="" id="city" readonly>
+            </div>
+            <div class="input-box">
+                <label>Street</label>
+                <input type="text" name="" id="street" readonly>
+            </div>
+            <div class="input-box">
+                <label>Building Number</label>
+                <input type="text" name="" id="buildingNumber" readonly>
+            </div>
+            <div class="input-box">
+                <label>Flat Number</label>
+                <input type="text" name="" id="flatNumber" readonly>
+            </div>
+            <button id="edit-btn" class="btn">Edit</button>
+        </div>
+
+    </div>
+
+    <div class="add-info center" style="display:none;">
+
+        <form id="add-form" method="post" action="#">
+            <br>
+            <div class="input-box">
+                <label>Image </label>
+                <input name="personImage" type="file" accept="image/png, image/jpeg">
+            </div>
+            <br>
+            <div class="input-box firstName">
+                <label>First Name</label>
+                <input name="firstName" type="text" id="firstName">
+            </div>
+            <div class="input-box">
+                <label>Last Name</label>
+                <input name="lastName" type="text" id="lastName">
+            </div>
+            <div class="input-box">
+                <label>Personal Number</label>
+                <input name="personalNumber" type="text" id="personalNumber">
+            </div>
+            <div class="input-box">
+                <label>Phone Number</label>
+                <input name="phoneNumber" type="text" id="phoneNumber">
+            </div>
+            <div class="input-box">
+                <label>Email</label>
+                <input name="email" type="text" id="email">
+            </div>
+            <div class="input-box">
+                <label>City</label>
+                <input name="city" type="text" id="city">
+            </div>
+            <div class="input-box">
+                <label>Street</label>
+                <input name="street" type="text" id="street">
+            </div>
+            <div class="input-box">
+                <label>Building Number</label>
+                <input name="buildingNumber" type="text" id="buildingNumber">
+            </div>
+            <div class="input-box">
+                <label>Flat Number</label>
+                <input name="flatNumber" type="text" id="flatNumber">
+            </div>
+            <button type="submit" class="btn">Save</button>
+        </form>
+    </div>
+
+    <div class="delete-user center" style="display: none ;">
+        <form action="#">
+            <div class="input-box">
+                <label>Enter User ID: </label>
+                <input id="userId" name="userId" type="text">
+                <button id="submit" type="submit">Delete</button>
+            </div>
+        </form>
+    </div>
+
+
+
+
+    <script src="./scripts/person-information.js" async defer></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</body>
+
+</html>

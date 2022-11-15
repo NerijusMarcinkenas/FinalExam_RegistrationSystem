@@ -33,6 +33,11 @@ namespace RegistrationSystem.DAL.Data
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Username)
                 .IsUnique();
+
+            modelBuilder.Entity<Person>()
+                .HasOne<PersonImage>(x => x.Image)
+                .WithOne(x => x.Person)
+                .HasForeignKey<PersonImage>(x => x.PersonId);
         }
     }
 }

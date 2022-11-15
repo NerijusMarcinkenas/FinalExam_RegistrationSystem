@@ -9,12 +9,12 @@ namespace RegistrationSystem.Core.Services
 {
     public interface IImageService
     {
-        PersonImage CreateImage(IFormFile personImage);
+        PersonImage CreateImage(IFormFile personImage, Person person);
     }
 
     public class ImageService : IImageService
     {
-        public PersonImage CreateImage(IFormFile personImage)
+        public PersonImage CreateImage(IFormFile personImage, Person person)
         {
             using var memmoryStream = new MemoryStream();
             personImage.CopyTo(memmoryStream);
@@ -22,12 +22,15 @@ namespace RegistrationSystem.Core.Services
 
             var resizedImageBytes = ResizeImage(imageBytes, 200, 200).GetImageBytes(ImageFormat.Jpeg);
 
-            return new PersonImage
+            var image = new PersonImage
             {
                 Name = personImage.FileName,
                 ContentType = personImage.ContentType,
                 ImageBytes = resizedImageBytes,
+                Person = person,
             };
+
+            return image;
         }
 
         private static Bitmap ResizeImage(

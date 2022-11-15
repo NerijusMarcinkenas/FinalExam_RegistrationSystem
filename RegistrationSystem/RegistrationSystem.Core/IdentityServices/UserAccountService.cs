@@ -57,9 +57,9 @@ namespace RegistrationSystem.Core.IdentityServices
                 result.Message = "Wrong credentials";
                 return result;
             }
-
+            result.UserId = user.Id;
             result.IsSuccess = true;
-            result.Message = "Login successfully";
+            result.Message = "Loged in successfully";
             result.Token = _jwtTokenService.GetJwtToken(user);
             return result;
         }

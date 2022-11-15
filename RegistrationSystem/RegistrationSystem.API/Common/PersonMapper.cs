@@ -20,7 +20,7 @@ namespace RegistrationSystem.API.Common
 
         public Person MapPersonRequest(CreatePersonRequest createPersonRequest, string userId)
         {
-            return new Person
+            var person = new Person
             {
                 FirstName = createPersonRequest.FirstName,
                 LastName = createPersonRequest.LastName,
@@ -28,21 +28,17 @@ namespace RegistrationSystem.API.Common
                 Email = createPersonRequest.Email,
                 PhoneNumber = createPersonRequest.PhoneNumber,
                 UserId = userId,
-                Address = MapAddress(createPersonRequest.CreateAddressRequest),
-                Image = _imageService.CreateImage(createPersonRequest.CreateImageRequest.PersonImage),                
+                Address = new Address
+                {
+                    BuildingNumber = createPersonRequest.BuildingNumber,
+                    Street = createPersonRequest.Street,
+                    City = createPersonRequest.City,
+                    FlatNumber = createPersonRequest.FlatNumber
+                }                            
             };
-        }
 
-        static Address MapAddress(CreateAddressRequest addressRequest)
-        {
-            return new Address
-            {
-                BuildingNumber = addressRequest.BuildingNumber,
-                Street = addressRequest.Street,
-                City = addressRequest.City,
-                FlatNumber = addressRequest.FlatNumber
-            };
+            person.Image = _imageService.CreateImage(createPersonRequest.PersonImage, person);
+            return person;
         }
-
     }
 }

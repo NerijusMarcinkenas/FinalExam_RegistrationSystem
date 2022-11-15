@@ -16,7 +16,7 @@ namespace RegistrationSystem.API.Extensions
         }
 
         public static bool IsAdmin(this ClaimsPrincipal user)
-        {
+        {            
             return user.IsInRole(nameof(Roles.Admin));
         }
     }

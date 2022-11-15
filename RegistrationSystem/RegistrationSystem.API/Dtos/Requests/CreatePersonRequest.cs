@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using RegistrationSystem.API.Common.ImageValidations;
+using System.ComponentModel.DataAnnotations;
 
 namespace RegistrationSystem.API.Dtos.Requests
 {
@@ -18,8 +19,24 @@ namespace RegistrationSystem.API.Dtos.Requests
 
         [MaxLength(500), Required]
         public string Email { get; set; } = string.Empty;
-        
-        public CreateImageRequest CreateImageRequest { get; set; } = null!;
-        public CreateAddressRequest CreateAddressRequest { get; set; } = null!;
+
+        [Required]
+        [AllowedExtensions(new[] { ".png", ".jpg", ".jpeg" })]
+        public IFormFile PersonImage { get; set; } = null!;
+
+        [MaxLength(250), Required]
+        public string City { get; set; } = null!;
+
+        [MaxLength(250), Required]
+        public string Street { get; set; } = null!;
+
+        [MaxLength(25), Required]
+        public string BuildingNumber { get; set; } = null!;
+
+        [MaxLength(25)]
+        public string? FlatNumber { get; set; } = null;
+
+        //public CreateImageRequest CreateImageRequest { get; set; } = null!;
+        //public CreateAddressRequest CreateAddressRequest { get; set; } = null!;
     }
 }

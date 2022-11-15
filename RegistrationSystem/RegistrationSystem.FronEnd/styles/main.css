@@ -1,0 +1,162 @@
+body {
+    background-color: rgb(199, 203, 192);
+    background: rgb(61, 92, 60);
+    background: linear-gradient(95deg, rgba(61, 92, 60, 1) 0%, rgba(96, 147, 91, 1) 33%, rgba(154, 231, 162, 1) 100%);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin: 0;
+    color: azure;
+    font-weight: 500;
+}
+
+h1 {
+    color: #3e4f49;
+    text-align: center;
+}
+
+.todo-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 3px 4px rgba(0, 0, 0, 0.2);
+}
+
+.topnav {
+    position: sticky;
+    top: 0;
+    height: 50px;
+    width: 100%;
+    display: flex;
+
+    background-color: #697f77;
+    margin-bottom: 20px;
+}
+
+.right {
+    flex-direction: row-reverse;
+    width: 100%;
+}
+
+
+.right,
+.left {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
+    margin-left: 50px;
+    margin-right: 50px;
+    font-size: 20px;
+}
+
+.inp-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    margin-bottom: 5px;
+}
+
+.center {
+    display: flex;
+    height: 100%;
+    align-content: center;
+    justify-content: center;
+}
+
+.nav div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+    font-size: 20px;
+    cursor: default;
+}
+
+.form-box form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    background: rgb(43, 65, 42);
+    background: linear-gradient(95deg, rgba(43, 65, 42, 1) 0%, rgba(70, 107, 66, 1) 33%, rgba(93, 139, 98, 1) 100%);
+    padding: 10px;
+}
+
+button {
+    width: 200px;
+    height: 30px;
+    background-color: #1f4639;
+    color: azure;
+    border: none;
+    border-radius: 10px;
+}
+
+button:hover {
+    background-color: #1f4639a2;
+}
+
+label {
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.inp-box {
+    width: 50%;
+}
+
+#register-box input,
+#login-box input {
+    width: 100%;
+    padding: 5px;
+    height: 20px;
+    border: none;
+    border-radius: 5px;
+    background: wheat;
+}
+
+#register-box input,
+#login-box input,
+#add-box input,
+#add-box textarea {
+    width: 100%;
+    height: 20px;
+    border: none;
+    border-radius: 5px;
+    background: wheat;
+}
+
+.form-box {
+    display: none;
+}
+
+.topnav .nav div:hover {
+    color: white;
+    background-color: rgb(40, 40, 16);
+}
+
+.todo-logo:hover {
+    box-shadow: 0px 0px 3px 4px rgba(255, 255, 255, 0.2);
+}
+
+.info-box {
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.info-tab .input-box {
+    display: flex;
+
+
+}
+
+.input-box label {
+    margin-right: 5px;
+    color: rgb(11, 9, 9);
+}
+
+.input-box {
+    margin-bottom: 5px;
+}

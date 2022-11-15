@@ -23,8 +23,8 @@ namespace RegistrationSystem.Core.Services
         public async Task<Result<Person>> AddPersonAsync(Person person)
         {
             var result = new Result<Person>();
-            
-            if (await _personRepository.GetByIdAsync(person.UserId) != null)
+            var personExists = await _personRepository.GetByIdAsync(person.UserId) != null;
+            if (personExists)
             {
                 result.Message = "Person information could be added only one time";
                 return result;

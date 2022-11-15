@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+</head>
+
+<body>
+
+    <div class="topnav" id="top-nav">
+        <div class="left">
+            <div id="person-logo" class="logo"><img class="todo-logo"
+                    src="https://media.istockphoto.com/id/1209654046/vector/user-avatar-profile-icon-black-vector-illustration.jpg?s=612x612&w=0&k=20&c=EOYXACjtZmZQ5IsZ0UUp1iNmZ9q2xl1BD1VvN6tZ2UI="
+                    alt="Person">
+            </div>
+        </div>
+        <div class="center nav">
+            <div id="register-btn">Register</div>
+            <div id="login-btn">Log In</div>
+        </div>
+    </div>
+
+    <h1>Registration System</h1>
+
+    <div class="form-box" id="register-box">
+        <fieldset>
+            <legend>Register</legend>
+            <form action="#" id="register-form">
+                <div class="inp-box"> <label>Username:</label>
+                    <input type="text" id="name-inp-reg">
+                </div>
+                <div class="inp-box"><label for="pass">Password:</label>
+                    <input type="password" name="pass" id="pass-inp-reg">
+                </div>
+                <div class="inp-box"> <label for="verify-password">Verify password:</label>
+                    <input type="password" name="verify-password" id="verify-pass-inp-reg">
+
+                </div>
+                <button class="submit" type="submit">Submit</button>
+                <input type="submit" hidden />
+            </form>
+        </fieldset>
+    </div>
+
+    <div class="form-box" id="login-box">
+        <fieldset>
+            <legend>Log In</legend>
+            <form action="#" id="login-form">
+                <div class="inp-box">
+                    <label for="name">Username:</label>
+                    <input type="text" name="name" id="name-inp-log">
+                </div>
+                <div class="inp-box">
+                    <label for="pass">Password:</label>
+                    <input type="password" name="pass" id="pass-inp-log">
+                </div>
+                <button class="submit" type="submit">Submit</button>
+                <input type="submit" hidden />
+            </form>
+        </fieldset>
+    </div>
+
+
+    <script src="/scripts/main.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</body>
+
+</html>

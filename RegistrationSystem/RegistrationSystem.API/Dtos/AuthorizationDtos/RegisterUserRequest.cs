@@ -10,6 +10,7 @@ namespace RegistrationSystem.API.Dtos.AuthorizationDtos
         [Required]
         public string Password { get; set; } = string.Empty;
 
+        [Required]
         [Compare("Password", ErrorMessage = "Passwords doesn't match")]
         public string VerifyPassword { get; set; } = null!;
     }

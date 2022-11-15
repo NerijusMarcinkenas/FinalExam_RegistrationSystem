@@ -12,23 +12,16 @@ namespace Tests.Common
             {
                 return new CreatePersonRequest()
                 {
-                    CreateAddressRequest = new CreateAddressRequest()
-                    {
-                        BuildingNumber = "1",
-                        City = "Test",
-                        FlatNumber = "5",
-                        Street = "Test street"
-                    },
-                    CreateImageRequest = new CreateImageRequest
-                    {
-                        PersonImage = CreateFormFile(),
-                    },
+                    BuildingNumber = "1",
+                    City = "Test",
+                    FlatNumber = "5",
+                    Street = "Test street",
+                    PersonImage = CreateFormFile(),
                     Email = "Test email",
                     FirstName = "Test name",
                     LastName = "Test lastname",
                     PersonalNumber = "32315464",
                     PhoneNumber = "545-550-55",
-
                 };
             }
             return new NoSpecimen();

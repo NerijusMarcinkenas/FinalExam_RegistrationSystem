@@ -159,7 +159,7 @@ namespace RegistrationSystem.API.Controllers
         [HttpPut("UpdateImage")]
         public async Task<ActionResult> UpdateImage(
             [Required] string userId, 
-            [Required] CreateImageRequest imageRequest)
+            [FromForm][Required] CreateImageRequest imageRequest)
         {
             if (!User.IsAdmin() && !User.MatchProvidedId(userId))
                 return BadRequest(new BadRequestMessage(LogedInUserIdDontMatchUserId.Message));
@@ -171,7 +171,7 @@ namespace RegistrationSystem.API.Controllers
                 return BadRequest(new BadRequestMessage(PersonNotCreatedMessage.Message));
             }
 
-            var personImage = _imageService.CreateImage(imageRequest.PersonImage);
+            var personImage = _imageService.CreateImage(imageRequest.PersonImage, personToUpdate);
 
             var updatedPerson = await _personService
                 .UpadateImageAsync(personToUpdate, personImage);
@@ -270,6 +270,7 @@ namespace RegistrationSystem.API.Controllers
                 return BadRequest(new BadRequestMessage(LogedInUserIdDontMatchUserId.Message));
             
             var person = await _personService.GetPersonWithIncludesAsync(userId);
+
             if (person == null)
             {
                 return BadRequest(new BadRequestMessage(PersonNotCreatedMessage.Message));

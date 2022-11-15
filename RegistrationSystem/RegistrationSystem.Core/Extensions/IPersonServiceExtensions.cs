@@ -38,12 +38,22 @@ namespace RegistrationSystem.Core.Extensions
             await service.UpdatePerson(person);
             return person;
         }
+
         public static async Task<Person> UpadateImageAsync(this IPersonService service, Person person, PersonImage value)
         {
-            person.Image = value;
+            person.Image = new PersonImage
+            {
+                Id = person.Image.Id,
+                ContentType = value.ContentType,
+                ImageBytes = value.ImageBytes,
+                Name = value.Name,
+                Person = person
+            };
+
             await service.UpdatePerson(person);
             return person;
         }
+
         public static async Task<Person> UpdateAddressCityAsync(this IPersonService service, Person person, string value)
         {
             person.Address.City = value;

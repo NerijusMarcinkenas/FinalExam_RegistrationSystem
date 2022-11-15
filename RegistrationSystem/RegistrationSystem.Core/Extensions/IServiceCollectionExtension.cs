@@ -27,12 +27,12 @@ namespace RegistrationSystem.Core.Extensions
             {
                 options.AddPolicy("User", policy =>
                 {
-                    policy.RequireRole(nameof(Roles.Admin), nameof(Roles.User));
+                    policy.RequireClaim("Role" ,nameof(Roles.Admin), nameof(Roles.User));
                 });
 
                 options.AddPolicy("Admin", policy =>
                 {
-                    policy.RequireRole(nameof(Roles.Admin));
+                    policy.RequireClaim("Role", nameof(Roles.Admin));
                 });
             });
 

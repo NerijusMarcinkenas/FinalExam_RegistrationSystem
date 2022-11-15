@@ -2,10 +2,10 @@
 {
     public class NotFoundErrorMessage
     {
-        public string Message { get; set; } = string.Empty;
-        public NotFoundErrorMessage(string message)
+        public string ErrorMessage { get; set; } = string.Empty;
+        public NotFoundErrorMessage(string errorMessage)
         {
-            Message = message;
+            ErrorMessage = errorMessage;
         }
     }
 }
