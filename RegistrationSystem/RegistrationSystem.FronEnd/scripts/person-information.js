@@ -127,7 +127,7 @@ const getPersonInfo = () => {
         .then(data => {
             if (data.errorMessage) {
                 editBtn.style.display = 'none';
-                toastr.error(data.errorMessage);
+                toastr.info(data.errorMessage);
             }
             else {
                 infoBox.style.display = 'flex';
@@ -204,7 +204,7 @@ const addPersonInfo = (formData) => {
                 toastr.warning(data.errorMessage);
             }
             if (data.message) {
-                toastr.sussess(data.message);
+                toastr.success(data.message);
             }
         })
         .catch(err => console.log(err));
@@ -511,6 +511,7 @@ const removePersonAccount = () => {
                 }
                 if (data.message) {
                     toastr.success(data.message);
+                    deleteForm.reset();
                 }
             })
     });

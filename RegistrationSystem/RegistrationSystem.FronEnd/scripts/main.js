@@ -31,6 +31,7 @@ const setButtons = () => {
 }
 
 const registration = () => {
+
     registerForm.addEventListener('submit', (event) => {
         event.preventDefault();
         const name = registerForm.querySelector('#name-inp-reg').value;
