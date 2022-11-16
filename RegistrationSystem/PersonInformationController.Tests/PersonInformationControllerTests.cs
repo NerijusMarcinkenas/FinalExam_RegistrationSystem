@@ -62,7 +62,7 @@ namespace RegistrationSystemUnitTests
             };
 
             _imageServiceMock
-                .Setup(x => x.CreateImage(createPersonRequest.PersonImage))
+                .Setup(x => x.CreateImage(createPersonRequest.PersonImage, person))
                 .Returns(new PersonImage());
 
             _personServiceMock
@@ -202,7 +202,7 @@ namespace RegistrationSystemUnitTests
             _seeder.SeedUserMockRole();
 
             _personServiceMock.Setup(x => x.GetPersonWithIncludesAsync("2")).ReturnsAsync(person);
-            _imageServiceMock.Setup(x => x.CreateImage(createPersonRequest.PersonImage)).Returns(new PersonImage());
+            _imageServiceMock.Setup(x => x.CreateImage(createPersonRequest.PersonImage, person)).Returns(new PersonImage());
 
             var result = await _sut.UpdateImage("2", new CreateImageRequest { PersonImage = createPersonRequest.PersonImage});
 
